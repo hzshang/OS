@@ -4,9 +4,11 @@
 .set PROT_MODE_DSEG,    0x10        # kernel data segment selector
 .set CR0_PE_ON, 		0x1     	# protected mode enable flag
 
+.section .entry
+.code16
+
 .globl _start
 _start:
-.code16
         cli
         cld
 		# clean register
@@ -28,10 +30,11 @@ seta20.2:
         jnz     seta20.2
         movb    $0xdf,%al           # 0xdf -> port 0x60
         outb    %al,$0x60           # 0xdf = 11011111, means set P2's A20 bit(the 1 bit) to 1
-		# Switch from real to protected mode, using a bootstrap GDT
-	    # and segment translation that makes virtual addresses
-	    # identical to physical addresses, so that the
-	    # effective memory map does not change during the switch.
+
+# Switch from real to protected mode, using a bootstrap GDT
+# and segment translation that makes virtual addresses
+# identical to physical addresses, so that the
+# effective memory map does not change during the switch.
         lgdt gdtdesc
         movl %cr0, %eax
     	orl $CR0_PE_ON, %eax
@@ -53,7 +56,7 @@ protcseg:
 loop:
         jmp loop
 
-
+.section .data
 # Bootstrap GDT
 .p2align 2                                          # force 4 byte alignment
 gdt:

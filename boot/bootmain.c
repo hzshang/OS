@@ -35,19 +35,16 @@ void bootmain(void) {
     entry();
 
 bad:
-    outw(0x8A00, 0x8A00);
-    outw(0x8A00, 0x8E00);
-
     /* do nothing */
     while (1);
 }
 
-static void waitdisk(void){
+void waitdisk(void){
     while ((inb(0x1F7) & 0xC0) != 0x40)
         /* do nothing */;
 }
 
-static void readsect(void *dst,uint32_t secno){
+void readsect(void *dst,uint32_t secno){
     // wait for disk to be ready
     waitdisk();
 
@@ -62,17 +59,17 @@ static void readsect(void *dst,uint32_t secno){
     waitdisk();
 
     // read a sector
-    insl(0x1F0, dst, SECTSIZE / 4);
+    insl(0x1F0, dst, SECTSIZE);
 }
 
-static void readseg(uintptr_t va,uint32_t count,uint32_t offset){
+void readseg(uintptr_t va,uint32_t count,uint32_t offset){
     uintptr_t end_va = va + count;
 
     // round down to sector boundary
     va -= offset % SECTSIZE;
 
     // translate from bytes to sectors; kernel starts at sector 1
-    uint32_t secno = (offset / SECTSIZE) + 1;
+    uint32_t secno = (offset / SECTSIZE);
 
     // If this is too slow, we could read lots of sectors at a time.
     // We'd write more to memory than asked, but it doesn't matter --
