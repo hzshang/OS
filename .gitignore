@@ -4,4 +4,4 @@
 .settings/*
 .project
 .cproject
-
+.gdb_history
