@@ -2,7 +2,7 @@
 #include <x86.h>
 #define SECTSIZE 512
 #define ELF_BUFFER 0x10000
-uint8_t* mbr;
+extern uint8_t mbr[];
 
 static void readseg(uintptr_t va, uint32_t count, uint32_t offset);
 static void readsect(void *dst, uint32_t secno);
