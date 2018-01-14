@@ -12,9 +12,7 @@
 #define BLANK_ATTR	(0x07)		/* white fg, black bg */
 #define CHAR_OFF(x,y)	(LINE_RAM*(y)+2*(x)) /*the offset in memory*/
 
-void set_cursor(int, int);
-void get_cursor(int *, int *);
-void print_c(char, COLOUR, COLOUR);
+
 
 typedef enum COLOUR_TAG {
 	BLACK, BLUE, GREEN, CYAN, RED, MAGENTA, BROWN, WHITE,
@@ -22,5 +20,8 @@ typedef enum COLOUR_TAG {
 	LIGHT_RED, LIGHT_MAGENTA, YELLOW, BRIGHT_WHITE
 } COLOUR;
 
+void set_cursor(int, int);
+void get_cursor(int *, int *);
+void print_c(char, COLOUR, COLOUR);
 
 #endif

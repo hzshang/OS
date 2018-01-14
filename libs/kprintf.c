@@ -1,4 +1,5 @@
 #include <kprintf.h>
+#include <screen.h>
 
 static char buf[1024] = {-1};
 static int ptr = -1;

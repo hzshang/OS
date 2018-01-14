@@ -1,4 +1,6 @@
 #include <libcc.h>
+
+
 /* *
  * memset - sets the first @n bytes of the memory area pointed by @s
  * to the specified value @c.
