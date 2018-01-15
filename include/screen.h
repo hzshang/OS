@@ -1,5 +1,5 @@
-#ifndef __INCLUDE_SCR_H
-#define __INCLUDE_SCR_H
+#ifndef __INCLUDE_SCREEN_H
+#define __INCLUDE_SCREEN_H
 
 #define MAX_LINES	25
 #define MAX_COLUMNS	80

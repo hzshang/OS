@@ -1,6 +1,21 @@
 #include <kprintf.h>
 
+void cga_init(){
+	for(int i=0;i<80;i++){
+		kprintf("\n");
+	}
+	set_cursor(0,0);
+}
+
 void kern_init(){
-	kprintf(KPL_DUMP,"hello,world!");
-	while(1);
+	cga_init();
+	kprintf("welcome to my os\n");
+	kprintf("hello,world\n");
+	kprintf("hello,world\n");
+	kprintf("hello,world\n");
+	kprintf("hello,world\n");
+	while(1){
+		kprintf("hello,world\n");
+		kprintf("welcome to my os\n");
+	}
 }

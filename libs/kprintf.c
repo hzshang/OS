@@ -28,9 +28,10 @@ parse_hex(unsigned int value) {
 	}
 }
 void
-kprintf(enum KP_LEVEL kl, const char *fmt, ...) {
+kprintf(const char *fmt, ...) {
     int i = 0;
     char *s;
+    enum KP_LEVEL kl=KPL_DUMP;
     /* must be the same size as enum KP_LEVEL */
     struct KPC_STRUCT {
             COLOUR fg;
