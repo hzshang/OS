@@ -7,14 +7,13 @@ CFLAGS := -I $(INCLUDE_PATH) -Wall -ggdb -gstabs -fno-stack-protector -Os -nostd
 SRC_BOOTMAIN :=bootmain.c
 SRC_BOOTASM :=bootasm.S
 BOOT_LD_SCRIPT :=boot.ld.S
-BOOTLOADER :=bootloader
+BOOTLOADER :=../bin/bootloader
+BOOTLOADER_ELF :=bootloader.elf
 
-BOOTLOADER_ELF :=$(BOOTLOADER:=.elf)
 OBJ_BOOTASM :=$(SRC_BOOTMAIN:.c=.o)
 OBJ_BOOTMAIN :=$(SRC_BOOTASM:.S=.o)
 
 all: $(BOOTLOADER)
-	$(CP) $^ ../bin/
 	@echo "bootloader compile success"
 
 $(BOOTLOADER): $(BOOTLOADER_ELF)

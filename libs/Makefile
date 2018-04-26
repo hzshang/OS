@@ -1,6 +1,6 @@
 
 include ../.env
-LIBC :=libc.so
+LIBC :=../bin/libc.so
 INCLUDE_PATH :=../include
 
 
@@ -9,7 +9,6 @@ SRC_FILES := $(wildcard *.c)
 OBJ_FILES := $(patsubst %.c,%.o,$(SRC_FILES))
 
 all:$(LIBC)
-	$(CP) $^ ../bin/
 	@echo "libc compile success"
 
 $(LIBC):$(OBJ_FILES)
