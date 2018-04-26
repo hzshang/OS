@@ -1,7 +1,7 @@
 #ifndef _INCLUDE_TYPES_H
 #define _INCLUDE_TYPES_H
 
-#define NULL 0
+#define NULL ((void *)0)
 
 typedef unsigned char		uint8_t;
 typedef signed char			int8_t;
@@ -17,11 +17,10 @@ typedef signed long long	int64_t;
  * We use pointer types to represent addresses,
  * uintptr_t to represent the numerical values of addresses.
  * */
+
 typedef int32_t intptr_t;
 typedef uint32_t uintptr_t;
-typedef uintptr_t size_t;
-
-
+typedef __SIZE_TYPE__ size_t;
 
 
 #endif

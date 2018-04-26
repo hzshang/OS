@@ -11,7 +11,7 @@
  * The memset() function returns @s.
  * */
 void *
-memset(void *s, char c, size_t n) {
+memset(void *s, int c, size_t n) {
 #ifdef __HAVE_ARCH_MEMSET
     return __memset(s, c, n);
 #else

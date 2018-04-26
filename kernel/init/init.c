@@ -1,4 +1,4 @@
-#include <kprintf.h>
+#include <stdio.h>
 
 void cga_init(){
 	for(int i=0;i<80;i++){
@@ -10,8 +10,7 @@ void cga_init(){
 void kern_init(){
 	cga_init();
 	kprintf("welcome to my os\n");
-	while(1){
-		kprintf("hello,world\n");
-		kprintf("welcome to my os\n");
-	}
+	kprintf("hello,world\n");
+	kprintf("welcome to my os\n");
+	asm("hlt");
 }

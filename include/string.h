@@ -1,5 +1,5 @@
-#ifndef __LIBS_STRING_H__
-#define __LIBS_STRING_H__
+#ifndef __INCLUDE_STRING_H__
+#define __INCLUDE_STRING_H__
 
 #include <types.h>
 
@@ -18,5 +18,5 @@ long strtol(const char *s, char **endptr, int base);
 
 
 
-#endif /* !__LIBS_STRING_H__ */
+#endif /* !__INCLUDE_STRING_H__ */
 

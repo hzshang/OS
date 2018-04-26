@@ -1,5 +1,5 @@
-#ifndef __BOOT_ASM_H__
-#define __BOOT_ASM_H__
+#ifndef __INCLUDE_ASM_H__
+#define __INCLUDE_ASM_H__
 
 /* Assembler macros to create x86 segments */
 
@@ -22,4 +22,4 @@
 #define STA_R       0x2     // Readable (executable segments)
 #define STA_A       0x1     // Accessed
 
-#endif /* !__BOOT_ASM_H__ */
+#endif /* !__INCLUDE_ASM_H__ */

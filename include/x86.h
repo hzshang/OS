@@ -1,5 +1,5 @@
-#ifndef __LIBS_X86_H__
-#define __LIBS_X86_H__
+#ifndef __INCLUDE_X86_H__
+#define __INCLUDE_X86_H__
 
 #include <types.h>
 
@@ -187,5 +187,5 @@ __memcpy(void *dst, const void *src, size_t n) {
 }
 #endif /* __HAVE_ARCH_MEMCPY */
 
-#endif /* !__LIBS_X86_H__ */
+#endif /* !__INCLUDE_X86_H__ */
 
