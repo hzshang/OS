@@ -8,6 +8,19 @@
     .word 0, 0;                                                 \
     .byte 0, 0, 0, 0
 
+// struc gdt_entry_struct
+//     limit_low:   resb 2
+//     base_low:    resb 2
+//     base_middle: resb 1
+//     access:      resb 1
+//     granularity: resb 1
+//     base_high:   resb 1
+// endstruc
+
+// GDT Register
+// 0   15 16         47
+// |LIMIT|----BASE----|
+
 #define SEG_ASM(type,base,lim)                                  \
     .word (((lim) >> 12) & 0xffff), ((base) & 0xffff);          \
     .byte (((base) >> 16) & 0xff), (0x90 | (type)),             \

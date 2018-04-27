@@ -15,19 +15,16 @@ all:$(OS_IMG)
 	@echo "make done"
 
 gdb:$(OS_IMG)
-	qemu-system-i386 -S -s $(OS_IMG)
+	qemu-system-i386 -curses -S -s $(OS_IMG)
 
 qemu: $(OS_IMG)
-	qemu-system-i386 $(OS_IMG)
+	qemu-system-i386 -curses $(OS_IMG)
 
 $(OS_IMG): $(BOOTLOADER) $(KERNEL)
 	@tools/buildImg.sh $@ $^
 
 $(KERNEL):
 	+$(MAKE) -C kernel
-
-$(LIBC):
-	+$(MAKE) -C libs
 
 $(BOOTLOADER):
 	+$(MAKE) -C boot

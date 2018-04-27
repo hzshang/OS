@@ -4,7 +4,7 @@ LIBC :=../bin/libc.so
 INCLUDE_PATH :=../include
 
 
-CFLAGS :=-I $(INCLUDE_PATH) -Wall -ggdb -c -fno-builtin
+CFLAGS :=-I $(INCLUDE_PATH) -Wall -ggdb -fdebug-prefix-map=..=$(readlink -f ..) -c -fno-builtin
 SRC_FILES := $(wildcard *.c)
 OBJ_FILES := $(patsubst %.c,%.o,$(SRC_FILES))
 
