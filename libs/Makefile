@@ -1,21 +1,19 @@
 
 include ../.env
-LIBC :=../bin/libc.so
+libc :=libc.so
 INCLUDE_PATH :=../include
 
 
-CFLAGS :=-I $(INCLUDE_PATH) -Wall -ggdb -fdebug-prefix-map=..=$(readlink -f ..) -c -fno-builtin
-SRC_FILES := $(wildcard *.c)
-OBJ_FILES := $(patsubst %.c,%.o,$(SRC_FILES))
+CFLAGS :=-I $(INCLUDE_PATH) -Wall -ggdb -c -fno-builtin
 
-all:$(LIBC)
+objects =$(patsubst %.c,%.o,$(wildcard *.c))
+
+all:$(libc)
 	@echo "libc compile success"
 
-$(LIBC):$(OBJ_FILES)
+$(libc):$(objects)
 	$(AR) rcs $@ $^
 
-%.o: %.c
-	$(CC) $(CFLAGS) $^ -o $@
-
+.PHONY: clean
 clean:
-	$(RM) $(OBJ_FILES) $(LIBC)
+	-$(RM) $(objects) $(libc)

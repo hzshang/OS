@@ -2,6 +2,8 @@
 *.o
 *.img
 *.elf
+*.so
+boot/bootloader
 
 .settings/*
 .project

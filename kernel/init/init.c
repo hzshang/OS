@@ -11,6 +11,5 @@ void kern_init(){
 	cga_init();
 	kprintf("welcome to my os\n");
 	kprintf("hello,world\n");
-	kprintf("welcome to my os\n");
 	asm("hlt");
 }

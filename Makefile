@@ -6,28 +6,31 @@ TARGET :=bin/
 KERN_LD_SCRIPT :=tools/kernel.ld.S
 
 
-KERNEL :=$(TARGET)/kernel
-OS_IMG :=$(TARGET)/os.img
-LIBC :=$(TARGET)/libc.so
-BOOTLOADER :=$(TARGET)/bootloader
+kernel :=kernel/kernel.elf
+libc :=libs/libc.so
+bootloader :=boot/bootloader
+img :=bin/os.img
 
-all:$(OS_IMG)
+all:$(img)
 	@echo "make done"
 
-gdb:$(OS_IMG)
-	qemu-system-i386 -curses -S -s $(OS_IMG)
+gdb:$(img)
+	$(QEMU) -curses -S -s $(img)
 
-qemu: $(OS_IMG)
-	qemu-system-i386 -curses $(OS_IMG)
+qemu: $(img)
+	$(QEMU) -curses $(img)
 
-$(OS_IMG): $(BOOTLOADER) $(KERNEL)
+$(img):$(bootloader) $(kernel)
 	@tools/buildImg.sh $@ $^
 
-$(KERNEL):
+$(kernel): |$(libc)
 	+$(MAKE) -C kernel
 
-$(BOOTLOADER):
+$(bootloader):
 	+$(MAKE) -C boot
+
+$(libc):
+	+$(MAKE) -C libs
 
 clean:
 	+$(MAKE) clean -C libs

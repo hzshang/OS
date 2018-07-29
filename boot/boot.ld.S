@@ -1,5 +1,5 @@
 
-ENTRY(_start)
+ENTRY(_begin)
 MEMORY
 {
     MBR (rwx) :

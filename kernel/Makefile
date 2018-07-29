@@ -1,21 +1,19 @@
 include ../.env
-#TODO
-KERNEL :=../bin/kernel
-INCLUDE_PATH :=../include
-KERN_LD_SCRIPT :=kernel.ld.S
-LIBC :=../bin/libc.so
 
+kernel :=kernel.elf
+INCLUDE_PATH :=../include
+ld_script :=kernel.ld.S
+libc :=../libs/libc.so
+
+
+object = init/init.o
 CFLAGS :=-I $(INCLUDE_PATH) -c -ggdb -static -Wall
 
-all: $(KERNEL)
+all: $(kernel)
 	@echo "kernel compile success"
 
-$(KERNEL): init/init.c $(KERN_LD_SCRIPT) $(LIBC)
-	$(CC) $(CFLAGS) init/init.c -o init/init.o
-	$(LD) -T $(KERN_LD_SCRIPT) init/init.o $(LIBC) -o $(KERNEL)
-
-$(LIBC):
-	+$(MAKE) -C ../libs
+$(kernel): $(object) $(ld_script) 
+	$(LD) -T $(ld_script) $< $(libc) -o $(kernel)
 
 clean:
-	$(RM) $(KERNEL)
+	$(RM) $(kernel)

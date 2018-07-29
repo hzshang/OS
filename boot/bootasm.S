@@ -1,4 +1,4 @@
-#include <asm.h>
+#include "asm.h"
 
 .set PROT_MODE_CSEG,	0x8         # kernel code segment selector
 .set PROT_MODE_DSEG,    0x10        # kernel data segment selector
@@ -7,8 +7,8 @@
 .section .entry
 .code16
 
-.globl _start
-_start:
+.globl _begin
+_begin:
         cli
         cld
 	# clean register
@@ -51,7 +51,7 @@ protcseg:
         movw %ax, %gs               # -> GS
         movw %ax, %ss               # -> SS: Stack Segment
         movl $0x0, %ebp
-        movl $_start, %esp
+        movl $_begin, %esp
         call bootmain
 loop:
         jmp loop

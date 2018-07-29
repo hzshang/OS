@@ -2,30 +2,28 @@ include ../.env
 
 
 INCLUDE_PATH :=../include
-CFLAGS := -I $(INCLUDE_PATH) -Wall -ggdb -fdebug-prefix-map=..=$(readlink -f ..) -gstabs -fno-stack-protector -Os -nostdinc -fno-pic -c
+CFLAGS := -I $(INCLUDE_PATH) -Wall -ggdb -gstabs -fno-stack-protector -Os -nostdinc -fno-pic -c
 
-SRC_BOOTMAIN :=bootmain.c
-SRC_BOOTASM :=bootasm.S
-BUILD_DIR :=../bin/
-BOOT_LD_SCRIPT :=boot.ld.S
-BOOTLOADER :=$(BUILD_DIR)/bootloader
+main_src = bootmain.c
+bootasm_src = bootasm.S
+main_obj = $(main_src:.c=.o)
+bootasm_obj = $(bootasm_src:.S=.o)
+ld_script = boot.ld.S
+target = bootloader
+elf = $(target:=.elf)
 
-BOOTLOADER_ELF :=$(BOOTLOADER:.=.elf)
-OBJ_BOOTASM :=$(SRC_BOOTMAIN:.c=.o)
-OBJ_BOOTMAIN :=$(SRC_BOOTASM:.S=.o)
-
-all: $(BOOTLOADER)
+all: $(target)
 	@echo "bootloader compile success"
 
-$(BOOTLOADER): $(OBJ_BOOTMAIN) $(OBJ_BOOTASM) $(BOOT_LD_SCRIPT)
-	$(LD) -T $(word 3,$^) -o $(BOOTLOADER_ELF)  $(word 1,$^) $(word 2,$^)
-	$(OBJCOPY) -S -O binary -j .text $(BOOTLOADER_ELF) $@
+$(target) : $(bootasm_obj) $(main_obj) $(ld_script)
+	$(LD) -T $(word 3,$^) -o $(elf) $(word 1,$^) $(word 2,$^)
+	$(OBJCOPY) -S -O binary -j .text $(elf) $@
 
-$(OBJ_BOOTMAIN): $(SRC_BOOTMAIN)
-	$(CC) $(CFLAGS) $^ -o $@
+$(bootasm_obj) :$(bootasm_src)
+	$(CC) $(CFLAGS) $^ -o $@ 
 
-$(OBJ_BOOTASM): $(SRC_BOOTASM)
-	$(CC) $(CFLAGS) $^ -o $@
+$(main_obj) :$(main_src)
+	$(CC) $(CFLAGS) $^ -o $@ 
 
 clean:
-	$(RM) $(BOOTLOADER) $(OBJ_BOOTASM) $(OBJ_BOOTMAIN) $(BOOTLOADER_ELF)
+	-$(RM) $(target) $(elf) $(main_obj) $(bootasm_obj)

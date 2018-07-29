@@ -15,4 +15,4 @@ echo w # Write changes
 
 dd if=$2 of=$1  conv=notrunc 
 dd if=$3 of=$1 seek=5 bs=512 conv=notrunc
-echo "Success:type \"qemu-system-i386 $1\" to run"
+
