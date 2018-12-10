@@ -24,7 +24,7 @@ $(img):$(bootloader) $(kernel)
 	@tools/buildImg.sh $@ $^
 
 $(kernel): |$(libc)
-	+$(MAKE) -C kernel
+	$(MAKE) -C kernel
 
 $(bootloader):
 	+$(MAKE) -C boot

@@ -3,6 +3,7 @@
 .set PROT_MODE_CSEG,	0x8         # kernel code segment selector
 .set PROT_MODE_DSEG,    0x10        # kernel data segment selector
 .set CR0_PE_ON, 	0x1         # protected mode enable flag
+.set SMAP,          0x534d4150
 
 .section .entry
 .code16
@@ -31,6 +32,26 @@ seta20.2:
         movb    $0xdf,%al           # 0xdf -> port 0x60
         outb    %al,$0x60           # 0xdf = 11011111, means set P2's A20 bit(the 1 bit) to 1
 
+
+#now probe memory
+probe_memory:
+        movl $0,0x8000
+        xorl %ebx, %ebx
+        movw $0x8004, %di
+start_probe:
+        movl $SMAP, %edx
+        movl $20, %ecx
+        movl $0xe820, %eax
+        int $0x15
+        jnc cont
+        movw $12345, 0x8000
+        jmp finish_probe
+cont:
+        addw $20, %di
+        incl 0x8000
+        cmpl $0, %ebx
+        jnz start_probe
+finish_probe: 
 # Switch from real to protected mode, using a bootstrap GDT
 # and segment translation that makes virtual addresses
 # identical to physical addresses, so that the
