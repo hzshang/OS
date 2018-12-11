@@ -4,6 +4,7 @@
 #include <mmu.h>
 #include <memlayout.h>
 #include <stdio.h>
+#include <clock.h>
 #define TICK_NUM 100
 static struct gatedesc idt[256] = {{0}};
 static struct pseudodesc idt_pd = {
@@ -20,7 +21,6 @@ void intr_init(){
 }
 
 void trap(struct trapframe *tf){
-    extern size_t ticks;
     switch(tf->tf_trapno){
         case IRQ_OFFSET + IRQ_TIMER:
             ticks++;

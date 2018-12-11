@@ -1,7 +1,7 @@
 include ../.env
 
 kernel :=kernel.elf
-INCLUDE_PATH :=-I ../include -Imm -Itrap -Iinit
+INCLUDE_PATH :=-I ../include -Imm -Itrap -Iinit -Idriver
 ld_script :=kernel.ld.S
 libc :=../libs/libc.so
 
