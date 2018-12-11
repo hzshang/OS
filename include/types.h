@@ -11,6 +11,7 @@ typedef unsigned int		uint32_t;
 typedef signed int		int32_t;
 typedef unsigned long long	uint64_t;
 typedef signed long long	int64_t;
+typedef unsigned int        bool;
 
 /* *
  * Pointers and addresses are 32 bits long.

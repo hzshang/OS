@@ -54,7 +54,6 @@ print_c(char c, COLOUR fg, COLOUR bg) {
 		}
 		break;
 	case '\t':
-		//TODO:c why
 		c = csr_x+TAB_WIDTH-(csr_x&(TAB_WIDTH-1));
 		c = c<MAX_COLUMNS?c:MAX_COLUMNS;
 		for (; csr_x<c; ++csr_x) {
